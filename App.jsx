@@ -25,14 +25,11 @@ import {
   Telegram, 
 } from '@mui/icons-material';
 
-// Import ảnh và nhạc cục bộ
+// --- ĐÃ CẬP NHẬT PHẦN IMPORT NÀY ---
 // Vui lòng đảm bảo các file này tồn tại trong thư mục src:
-// import avatar from './avatar.jpg';
-// import musicFile from './music.mp3';
-// Tạm thời dùng placeholder nếu file chưa có
-// const avatar = 'https://via.placeholder.com/110/333333/FFFFFF?text=AV'; 
-const avatar = './avatar.jpg'; 
-const musicFile = './music.mp3'; 
+import avatar from './avatar.jpg'; // Vite sẽ xử lý tệp này và đưa vào dist/assets
+import musicFile from './music.mp3'; 
+// ------------------------------------
 
 
 // --- 1. Animations & Keyframes ---
@@ -67,10 +64,9 @@ const gradientShift = keyframes`
 
 // Hàm tạo Glassmorphism Base Style để đảm bảo đồng nhất
 const glassBaseStyles = (theme) => ({
-    // Màu nền Glassmorphism đồng nhất cho cả Light/Dark Mode
     background: theme.palette.mode === 'dark' 
-        ? 'rgba(255, 255, 255, 0.15)' // Trắng mờ trong Dark Mode
-        : 'rgba(255, 255, 255, 0.45)', // Trắng mờ hơn trong Light Mode
+        ? 'rgba(255, 255, 255, 0.15)' 
+        : 'rgba(255, 255, 255, 0.45)', 
     
     backdropFilter: 'blur(10px)',
     border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.18)' : 'rgba(255, 255, 255, 0.3)'}`,
@@ -219,31 +215,26 @@ const ActiveMusicPlayer = () => {
 
 // --- 4. Main Application (Đã thêm logic lưu trữ và đọc chế độ hệ thống) ---
 
-// Hàm lấy chế độ ban đầu từ Local Storage hoặc hệ thống
 const getInitialMode = () => {
-    // 1. Kiểm tra Local Storage
     if (typeof window !== 'undefined') {
         const savedMode = localStorage.getItem('themeMode');
         if (savedMode) {
             return savedMode;
         }
     
-        // 2. Kiểm tra chế độ hệ thống (System Preference)
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         return prefersDark ? 'dark' : 'light';
     }
-    // 3. Mặc định
     return 'light'; 
 };
 
 export default function ProfilePageV7() {
   const [mode, setMode] = useState(getInitialMode);
 
-  // Hàm xử lý chuyển đổi chế độ và lưu vào Local Storage
   const handleModeToggle = () => {
     const newMode = mode === 'light' ? 'dark' : 'light';
     setMode(newMode);
-    localStorage.setItem('themeMode', newMode); // Lưu vào Local Storage
+    localStorage.setItem('themeMode', newMode); 
   };
 
   const theme = useMemo(() => createTheme({
@@ -280,7 +271,7 @@ export default function ProfilePageV7() {
         <Box sx={{ position: 'absolute', top: 24, right: 24, zIndex: 100 }}>
            
            <IconButton
-              onClick={handleModeToggle} // Dùng handler mới
+              onClick={handleModeToggle} 
               sx={{
                 ...glassBaseStyles(theme), 
                 
