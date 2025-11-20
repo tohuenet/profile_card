@@ -398,6 +398,10 @@ export default function ProfilePageV7() {
                   borderColor: 'background.paper',
                   boxShadow: 4,
                 }}
+                // Đảm bảo trình duyệt tải ảnh này với ưu tiên cao nhất
+                imgProps={{ 
+                    fetchPriority: "high" 
+                }}
               />
             </Box>
 
